@@ -106,18 +106,21 @@ export interface Database {
           created_at: string | null
           id: string
           post_id: string
+          rider_id: string
           status: Database["public"]["Enums"]["trip_status"]
         }
         Insert: {
           created_at?: string | null
           id?: string
           post_id: string
+          rider_id: string
           status: Database["public"]["Enums"]["trip_status"]
         }
         Update: {
           created_at?: string | null
           id?: string
           post_id?: string
+          rider_id?: string
           status?: Database["public"]["Enums"]["trip_status"]
         }
         Relationships: [
@@ -125,6 +128,12 @@ export interface Database {
             foreignKeyName: "driver_requests_post_id_fkey"
             columns: ["post_id"]
             referencedRelation: "driver_posts"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "driver_requests_rider_id_fkey"
+            columns: ["rider_id"]
+            referencedRelation: "profiles"
             referencedColumns: ["id"]
           }
         ]
@@ -223,6 +232,43 @@ export interface Database {
             foreignKeyName: "rider_posts_user_id_fkey"
             columns: ["user_id"]
             referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          }
+        ]
+      }
+      rider_requests: {
+        Row: {
+          created_at: string | null
+          "driver_id ": string | null
+          id: string
+          post_id: string | null
+          status: Database["public"]["Enums"]["trip_status"] | null
+        }
+        Insert: {
+          created_at?: string | null
+          "driver_id "?: string | null
+          id?: string
+          post_id?: string | null
+          status?: Database["public"]["Enums"]["trip_status"] | null
+        }
+        Update: {
+          created_at?: string | null
+          "driver_id "?: string | null
+          id?: string
+          post_id?: string | null
+          status?: Database["public"]["Enums"]["trip_status"] | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "rider_requests_driver_id _fkey"
+            columns: ["driver_id "]
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "rider_requests_post_id_fkey"
+            columns: ["post_id"]
+            referencedRelation: "rider_posts"
             referencedColumns: ["id"]
           }
         ]
